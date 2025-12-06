@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TensorFlow - Guía Completa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        /* Header */
+        
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(30, 64, 175, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+        /* Índice Interactivo */
+        
+        .index-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #3b82f6;
+        }
+        
+        .index-container h2 {
+            color: #1e40af;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .index-container h2 i {
+            color: #3b82f6;
+        }
+        
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .index-item {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .index-item:hover {
+            transform: translateY(-5px);
+            background-color: #e0f2fe;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.1);
+        }
+        
+        .index-item a {
+            text-decoration: none;
+            color: #1e40af;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .index-item a i {
+            font-size: 0.9rem;
+        }
+        /* Contenido Principal */
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            scroll-margin-top: 20px;
+        }
+        
+        .section h2 {
+            color: #1e40af;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dbeafe;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section h2 i {
+            color: #3b82f6;
+        }
+        
+        .section p,
+        .section li {
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #475569;
+        }
+        
+        .section ul {
+            padding-left: 20px;
+        }
+        
+        .section li {
+            margin-bottom: 10px;
+        }
+        /* Código de ejemplo */
+        
+        .code-example {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #3b82f6;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        
+        .code-example code {
+            color: #1e40af;
+            font-weight: 600;
+        }
+        /* Características */
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #bae6fd;
+        }
+        
+        .feature-card h3 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        /* Footer */
+        
+        footer {
+            background-color: #1e293b;
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        footer p {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        /* Botón de volver al índice */
+        
+        .back-to-index {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .back-to-index:hover {
+            text-decoration: underline;
+        }
+        /* Responsive */
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .index-grid {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 20px;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Efecto de scroll suave */
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-brain"></i> TensorFlow</h1>
+            <p>Una plataforma de código abierto para el aprendizaje automático desarrollada por Google. Permite a los investigadores y desarrolladores construir e implementar modelos de ML de manera fácil y eficiente.</p>
+        </header>
+
+        <div class="index-container">
+            <h2><i class="fas fa-list"></i> Índice Interactivo</h2>
+            <div class="index-grid">
+                <div class="index-item">
+                    <a href="#que-es"><i class="fas fa-chevron-right"></i> ¿Qué es TensorFlow?</a>
+                </div>
+                <div class="index-item">
+                    <a href="#caracteristicas"><i class="fas fa-chevron-right"></i> Características Principales</a>
+                </div>
+                <div class="index-item">
+                    <a href="#arquitectura"><i class="fas fa-chevron-right"></i> Arquitectura</a>
+                </div>
+                <div class="index-item">
+                    <a href="#ventajas"><i class="fas fa-chevron-right"></i> Ventajas</a>
+                </div>
+                <div class="index-item">
+                    <a href="#aplicaciones"><i class="fas fa-chevron-right"></i> Aplicaciones</a>
+                </div>
+                <div class="index-item">
+                    <a href="#ejemplo"><i class="fas fa-chevron-right"></i> Ejemplo de Código</a>
+                </div>
+                <div class="index-item">
+                    <a href="#recursos"><i class="fas fa-chevron-right"></i> Recursos Adicionales</a>
+                </div>
+                <div class="index-item">
+                    <a href="#futuro"><i class="fas fa-chevron-right"></i> Futuro de TensorFlow</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <section id="que-es" class="section">
+                <h2><i class="fas fa-question-circle"></i> ¿Qué es TensorFlow?</h2>
+                <p><strong>TensorFlow</strong> es una biblioteca de software de código abierto para el aprendizaje automático y la inteligencia artificial. Fue desarrollada por el equipo de Google Brain y lanzada en 2015.</p>
+                <p>El nombre "TensorFlow" deriva de las operaciones que realizan las redes neuronales sobre tensores multidimensionales. Un tensor es una generalización de vectores y matrices a dimensiones más altas.</p>
+                <p>TensorFlow permite a los desarrolladores crear grafos de flujo de datos, donde los nodos representan operaciones matemáticas y los bordes representan los tensores multidimensionales (arrays de datos) que fluyen entre ellas.</p>
+                <p>Es compatible con varios lenguajes de programación, pero Python es el más utilizado debido a su sintaxis clara y a la amplia disponibilidad de bibliotecas de apoyo.</p>
+                <a href="#" class="back-to-index"><i class="fas fa-arrow-up"></i> Volver al índice</a>
+            </section>
+
+            <section id="caracteristicas" class="section">
+                <h2><i class="fas fa-star"></i> Características Principales</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>Computación en GPU/TPU</h3>
+                        <p>TensorFlow puede ejecutar operaciones en CPUs, GPUs y TPUs (Tensor Processing Units) de Google, lo que acelera significativamente el entrenamiento de modelos complejos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>TensorFlow.js</h3>
+                        <p>Permite ejecutar modelos de aprendizaje automático directamente en el navegador web y en Node.js, facilitando la implementación de aplicaciones web con IA.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Keras Integrado</h3>
+                        <p>TensorFlow incluye Keras como API de alto nivel, lo que simplifica la creación y entrenamiento de modelos de deep learning con pocas líneas de código.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Modelos Preentrenados</h3>
+                        <p>Ofrece un amplio repositorio de modelos preentrenados (TensorFlow Hub) que pueden ser reutilizados y ajustados para tareas específicas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>TensorFlow Lite</h3>
+                        <p>Proporciona herramientas para optimizar e implementar modelos en dispositivos móviles y embebidos con recursos limitados.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>TensorFlow Serving</h3>
+                        <p>Sistema flexible para implementar modelos de aprendizaje automático en producción, con soporte para actualizaciones en caliente y versionado.</p>
+                    </div>
+                </div>
+                <a href="#" class="back-to-index"><i class="fas fa-arrow-up"></i> Volver al índice</a>
+            </section>
+
+            <section id="arquitectura" class="section">
+                <h2><i class="fas fa-sitemap"></i> Arquitectura</h2>
+                <p>La arquitectura de TensorFlow se organiza en varias capas:</p>
+                <ul>
+                    <li><strong>Capa de frontend:</strong> Donde los usuarios escriben código en lenguajes como Python, JavaScript, C++ o Java para definir modelos.</li>
+                    <li><strong>Grafos de ejecución:</strong> TensorFlow convierte el código en grafos de flujo de datos que representan las operaciones computacionales.</li>
+                    <li><strong>Distribución de ejecución:</strong> Los grafos se distribuyen entre uno o más dispositivos (CPUs, GPUs, TPUs) para su ejecución.</li>
+                    <li><strong>Backend:</strong> Implementa la ejecución eficiente de operaciones en hardware específico.</li>
+                    <li><strong>APIs de alto nivel:</strong> Como Keras, que simplifican la creación de modelos complejos.</li>
+                </ul>
+                <p>TensorFlow 2.x introdujo cambios significativos, como la ejecución ansiosa (eager execution) por defecto, que permite una evaluación inmediata de operaciones, haciendo la depuración más intuitiva.</p>
+                <a href="#" class="back-to-index"><i class="fas fa-arrow-up"></i> Volver al índice</a>
+            </section>
+
+            <section id="ventajas" class="section">
+                <h2><i class="fas fa-thumbs-up"></i> Ventajas de TensorFlow</h2>
+                <ul>
+                    <li><strong>Comunidad activa:</strong> Una de las comunidades más grandes en el campo del aprendizaje automático, con abundante documentación y recursos.</li>
+                    <li><strong>Producción lista:</strong> Herramientas robustas para implementar modelos en producción a escala.</li>
+                    <li><strong>Flexibilidad:</strong> Permite crear desde modelos simples de regresión hasta complejas arquitecturas de redes neuronales.</li>
+                    <li><strong>Soporte multiplataforma:</strong> Funciona en Windows, Linux, macOS, Android, iOS y dispositivos embebidos.</li>
+                    <li><strong>Visualización integrada:</strong> TensorBoard permite visualizar métricas, grafos de modelos y embeddings de manera interactiva.</li>
+                    <li><strong>Investigación y producción:</strong> Es utilizado tanto en investigación académica como en aplicaciones comerciales de grandes empresas.</li>
+                </ul>
+                <a href="#" class="back-to-index"><i class="fas fa-arrow-up"></i> Volver al índice</a>
+            </section>
+
+            <section id="aplicaciones" class="section">
+                <h2><i class="fas fa-rocket"></i> Aplicaciones de TensorFlow</h2>
+                <p>TensorFlow se utiliza en una amplia variedad de dominios:</p>
+                <ul>
+                    <li><strong>Visón por computadora:</strong> Reconocimiento de imágenes, detección de objetos, segmentación semántica.</li>
+                    <li><strong>Procesamiento de lenguaje natural:</strong> Traducción automática, análisis de sentimientos, chatbots.</li>
+                    <li><strong>Sistemas de recomendación:</strong> Personalización de contenido en plataformas como YouTube y Spotify.</li>
+                    <li><strong>Salud:</strong> Diagnóstico médico asistido por IA, descubrimiento de fármacos, análisis de imágenes médicas.</li>
+                    <li><strong>Autos autónomos:</strong> Percepción del entorno, toma de decisiones en tiempo real.</li>
+                    <li><strong>Arte generativo:</strong> Creación de imágenes, música y texto mediante modelos generativos.</li>
+                    <li><strong>Finanzas:</strong> Detección de fraudes, predicción de mercados, evaluación de riesgos.</li>
+                </ul>
+                <a href="#" class="back-to-index"><i class="fas fa-arrow-up"></i> Volver al índice</a>
+            </section>
+
+            <section id="ejemplo" class="section">
+                <h2><i class="fas fa-code"></i> Ejemplo de Código</h2>
+                <p>A continuación se muestra un ejemplo básico de cómo crear y entrenar una red neuronal simple con TensorFlow y Keras para clasificar dígitos escritos a mano (MNIST dataset):</p>
+
+                <div class="code-example">
+                    <code>
+import tensorflow as tf<br>
+from tensorflow import keras<br>
+from tensorflow.keras import layers<br><br>
+
+# Cargar datos MNIST<br>
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()<br><br>
+
+# Preprocesar datos<br>
+x_train = x_train.reshape(-1, 28*28).astype("float32") / 255.0<br>
+x_test = x_test.reshape(-1, 28*28).astype("float32") / 255.0<br><br>
+
+# Definir modelo secuencial<br>
+model = keras.Sequential([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(512, activation='relu', input_shape=(784,)),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dropout(0.2),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(256, activation='relu'),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dropout(0.2),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(10, activation='softmax')<br>
+])<br><br>
+
+# Compilar modelo<br>
+model.compile(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;optimizer='adam',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss='sparse_categorical_crossentropy',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;metrics=['accuracy']<br>
+)<br><br>
+
+# Entrenar modelo<br>
+history = model.fit(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x_train, y_train,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;batch_size=32,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;epochs=10,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;validation_split=0.2<br>
+)<br><br>
+
+# Evaluar modelo<br>
+test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)<br>
+print(f'\nPrecisión en datos de prueba: {test_acc}')<br>
+                    </code>
+                </div>
+                <a href="#" class="back-to-index"><i class="fas fa-arrow-up"></i> Volver al índice</a>
+            </section>
+
+            <section id="recursos" class="section">
+                <h2><i class="fas fa-link"></i> Recursos Adicionales</h2>
+                <p>Para aprender más sobre TensorFlow, puedes consultar los siguientes recursos oficiales:</p>
+                <ul>
+                    <li><strong>Sitio web oficial:</strong> <a href="https://www.tensorflow.org/" target="_blank">www.tensorflow.org</a></li>
+                    <li><strong>Documentación:</strong> Guías, tutoriales y referencias de API completas.</li>
+                    <li><strong>TensorFlow Hub:</strong> Repositorio de modelos preentrenados listos para usar.</li>
+                    <li><strong>Cursos en Coursera:</strong> Especialización en TensorFlow ofrecida por DeepLearning.AI.</li>
+                    <li><strong>GitHub:</strong> Repositorio oficial con ejemplos y código fuente.</li>
+                    <li><strong>TensorFlow YouTube Channel:</strong> Tutoriales en video y charlas de desarrolladores.</li>
+                </ul>
+                <a href="#" class="back-to-index"><i class="fas fa-arrow-up"></i> Volver al índice</a>
+            </section>
+
+            <section id="futuro" class="section">
+                <h2><i class="fas fa-crystal-ball"></i> Futuro de TensorFlow</h2>
+                <p>TensorFlow continúa evolucionando con nuevas características y mejoras:</p>
+                <ul>
+                    <li><strong>Integración con JAX:</strong> Google está combinando lo mejor de TensorFlow con JAX para investigación de vanguardia.</li>
+                    <li><strong>Optimizaciones de hardware:</strong> Mejoras continuas en el soporte para TPUs y GPUs especializadas.</li>
+                    <li><strong>Automatización de ML:</strong> Herramientas como AutoML y TFX para automatizar el flujo de trabajo de ML.</li>
+                    <li><strong>IA responsable:</strong> Herramientas para detectar sesgos y garantizar la equidad en modelos de ML.</li>
+                    <li><strong>Edge computing:</strong> Mayor eficiencia en la ejecución de modelos en dispositivos IoT y móviles.</li>
+                    <li><strong>Computación cuántica:</strong> TensorFlow Quantum para el desarrollo de algoritmos de ML cuántico.</li>
+                </ul>
+                <p>La versatilidad y el continuo desarrollo de TensorFlow aseguran que seguirá siendo una de las plataformas líderes para el aprendizaje automático en los próximos años.</p>
+                <a href="#" class="back-to-index"><i class="fas fa-arrow-up"></i> Volver al índice</a>
+            </section>
+        </div>
+
+        <footer>
+            <p><strong>TensorFlow</strong> - Página informativa educativa</p>
+            <p>Esta página es un recurso educativo sobre TensorFlow. TensorFlow es una marca registrada de Google Inc.</p>
+            <div class="footer-links">
+                <a href="https://www.tensorflow.org/" target="_blank">Sitio Oficial</a>
+                <a href="https://github.com/tensorflow/tensorflow" target="_blank">GitHub</a>
+                <a href="https://www.tensorflow.org/learn" target="_blank">Documentación</a>
+                <a href="https://blog.tensorflow.org/" target="_blank">Blog Oficial</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Añadir funcionalidad para resaltar la sección activa en el índice
+        document.addEventListener('DOMContentLoaded', function() {
+            const indexItems = document.querySelectorAll('.index-item a');
+
+            indexItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    // Remover la clase activa de todos los elementos
+                    indexItems.forEach(i => i.parentElement.classList.remove('active'));
+
+                    // Añadir clase activa al elemento clickeado
+                    this.parentElement.classList.add('active');
+                });
+            });
+
+            // Añadir animación suave a los enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
